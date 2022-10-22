@@ -1,0 +1,52 @@
+{
+    "products": [
+        {
+            "name": "Portatil HP 14-CF2515LA",
+            "slug": "portatil-hp-14-cf251la",
+            "category": "Laptops",
+            "image": "/images/p1.jpg",
+            "price": 145000,
+            "countInStock": 50,
+            "brand": "HP",
+            "rating": 4.6,
+            "numReviews": 35,
+            "description": "PORTATIL HP 14-cf2515la"
+        },
+        {
+            "name": "Disco Solido SSD Crucial 240GB BX500",
+            "slug": "disco-solido-ssd-crucial-240",
+            "category": "Almacenamiento",
+            "image": "/images/p2.jpg",
+            "price": 156000,
+            "countInStock": 25,
+            "brand": "CRUCIAL",
+            "rating": 3.9,
+            "numReviews": 75,
+            "description": "Disco duro SSD crucial 240GB BX500"
+        },
+        {
+            "name": "Disco Solido Adata SSD M.2 250GB ",
+            "slug": "disco-ssd-m2-adata",
+            "category": "Almacenamiento",
+            "image": "/images/p3.jpg",
+            "price": 170000,
+            "countInStock": 10,
+            "brand": "ADATA",
+            "rating": 4.3,
+            "numReviews": 10,
+            "description": "Disco Solido Adata SSD M2"
+        },
+        {
+            "name": "LENOVO 3 14ADA05 AMD ATHLON SILVER 3050U",
+            "slug": "portatil-lenovo-3-14ada05",
+            "category": "Laptops",
+            "image": "/images/p4.jpg",
+            "price": 950000,
+            "countInStock": 30,
+            "brand": "LENOVO",
+            "rating": 4.7,
+            "numReviews": 225,
+            "description": "PORTATIL LENOVO 14ADA05"
+        }
+    ]
+}
