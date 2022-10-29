@@ -1,17 +1,37 @@
-import './App.css';
-import data from "data.json";
+import "./App.css";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import HomeScreen from "./screens/HomeScreen";
+import ProductScreen from "./screens/ProductScreen";
+import Navbar from "react-bootstrap/Navbar";
+import Container from "react-bootstrap/Container";
+import { LinkContainer } from "react-router-bootstrap";
 
 function App() {
   return (
-    <div className="App">
-      <header>
-        <a href="/">eSHOP</a>
-      </header>
+    <BrowserRouter>
+      <div className="d-flex flex-column site-container">
+        <header>
+          <Navbar bg="dark" variant="dark">
+            <Container>
+              <LinkContainer to="/">
+                <Navbar.Brand>Tienda Virtual MinTIC</Navbar.Brand>
+              </LinkContainer>
+            </Container>
+          </Navbar>
+        </header>
         <main>
-          list product
+          <Container>
+            <Routes>
+              <Route path="/product/:slug" element={<ProductScreen />} />
+              <Route path="/" element={<HomeScreen />} />
+            </Routes>
+          </Container>
         </main>
-    </div>
+        <footer>
+          <div className="text-center">Derechos reservados Didier Guerrero S.</div>
+        </footer>
+      </div>
+    </BrowserRouter>
   );
 }
-
 export default App;
