@@ -38,3 +38,6 @@ main {
   background-color: blue;
 }
 
+.img-thumbnail {
+  height: 80px;
+}
