@@ -3,18 +3,17 @@ import { useContext, useEffect, useReducer } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Rating from "../components/Rating";
 import ListGroup from "react-bootstrap/ListGroup";
+import Rating from "../components/Rating";
 import Card from "react-bootstrap/Card";
 import Badge from "react-bootstrap/Badge";
 import Button from "react-bootstrap/Button";
-import { Helmet } from "react-helmet-async";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
 import { getError } from "../utils";
-import { Store }  from '../Store';
+import { Store } from "../Store";
 
-const baseURL = "http://localhost:5000";
+const baseURL = "http://localhost:30000";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -33,13 +32,13 @@ function ProductScreen() {
   const navigate = useNavigate();
   const params = useParams();
   const { slug } = params;
+  console.log(slug);
   const [{ loading, error, product }, dispatch] = useReducer(reducer, {
     product: [],
     loading: true,
     error: "",
   });
 
-  //const [products, setProducts] = useState([]);
   useEffect(() => {
     const fecthData = async () => {
       dispatch({ type: "FETCH_REQUEST" });
@@ -54,20 +53,21 @@ function ProductScreen() {
   }, [slug]);
 
   const { state, dispatch: ctxDispatch } = useContext(Store);
-  const {cart} = state
+  const {cart} =state;
+  
   const addToCartHandler = async() => {
     const existItem = cart.cartItems.find((x) => x._id === product._id);
-    const quantify = existItem ? existItem.quantify + 1 : 1;
+    const quantify = existItem ? existItem.quantify + 1: 1;
     const { data } = await axios.get(`${baseURL}/api/products/${product._id}`);
     if (data.countInStock < quantify ) {
-      window.alert('Ya no contamos con productos en stock');
+      window.alert('El producto esta fuera de stock');
       return;
     }
     ctxDispatch({
       type: 'CART_ADD_ITEM',
-      payload: { ...product, quantify: 1}, //Revisar porque no deja agregar varios productos!!!
+      payload: { ...product, quantify },
     });
-    navigate('/cart')
+    navigate('/cart');
   };
 
   return loading ? (
@@ -87,9 +87,6 @@ function ProductScreen() {
         <Col md={3}>
           <ListGroup variant="flush">
             <ListGroup.Item>
-              <Helmet>
-                <title>{product.name}</title>
-              </Helmet>
               <h1>{product.name}</h1>
             </ListGroup.Item>
             <ListGroup.Item>
@@ -98,9 +95,8 @@ function ProductScreen() {
                 numReviews={product.numReviews}
               ></Rating>
             </ListGroup.Item>
-            <ListGroup.Item>Precio : ${product.price}</ListGroup.Item>
+            <ListGroup.Item>Price: $ {product.price}</ListGroup.Item>
             <ListGroup.Item>
-              Descripción:
               <p>{product.description}</p>
             </ListGroup.Item>
           </ListGroup>
@@ -117,12 +113,12 @@ function ProductScreen() {
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Row>
-                    <Col>Stock disponible</Col>
+                    <Col>Unidades: </Col>
                     <Col>
                       {product.countInStock > 0 ? (
-                        <Badge bg="success">Unidades disponibles</Badge>
+                        <Badge bg="success">Unidades Disponibles</Badge>
                       ) : (
-                        <Badge bg="danger">Sin unidades disponibles</Badge>
+                        <Badge bg="danger">Sin Unidades Disponibles</Badge>
                       )}
                     </Col>
                   </Row>
@@ -130,11 +126,7 @@ function ProductScreen() {
                 {product.countInStock > 0 && (
                   <ListGroup.Item>
                     <div className="d-grid">
-                      <Button
-                        onClick={addToCartHandler}
-                        className="btn-addcar"
-                        variant="primary"
-                      >
+                      <Button onClick={addToCartHandler} variant="primary">
                         Agregar al carrito
                       </Button>
                     </div>
